@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using NaughtyAttributes;
+using Unity.Cinemachine;
 public class PlayerMovement : MonoBehaviour
 {
     Actions actions; //popiêcie do klasy z inputem
     [SerializeField][Foldout("Settings")] float speed = 5;
+    [SerializeField] CinemachineCamera camera;
+    
     
     //[SerializeField] Animator animator;
     //[SerializeField] PlayerWeapon weaponScript;
@@ -19,6 +22,8 @@ public class PlayerMovement : MonoBehaviour
         //g³ównie popina input do wartoœci w skrypcie
         actions.Player.Enable();
         move = actions.Player.Move;
+        actions.Player.Move.started += changeCamera;
+        //camera = cameraObject.GetComponent<CinemachineCamera>();
     }
     private void OnDisable()
     {
@@ -31,13 +36,18 @@ public class PlayerMovement : MonoBehaviour
         //Jebaæ rêczne popinaie
         rb = GetComponent<Rigidbody>();
         actions = new Actions();
+        camera.Lens.ModeOverride = LensSettings.OverrideModes.Orthographic;
         //weaponScript = GetComponentInChildren<PlayerWeapon>();
 
     }
-
+    void changeCamera(InputAction.CallbackContext context)
+    {
+        camera.Lens.ModeOverride = LensSettings.OverrideModes.None;
+        actions.Player.Move.started -= changeCamera;
+    }
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame

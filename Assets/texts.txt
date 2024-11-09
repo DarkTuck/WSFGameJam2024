@@ -24,8 +24,6 @@ Yeah! Yeah I said it! And what now? You’ll just leave like you always do?! You
 
 -*Then why won’t you just open the door!?*
 
-DIALOG HORROR (po switch-upie):
-
 You would just love for me to do that, won’t you?
 
 I won’t help you leave anymore. It’s time you finally figure that out for yourself.
