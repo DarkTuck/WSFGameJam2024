@@ -17,6 +17,7 @@ public class interactScript : MonoBehaviour
         if (tag == exeptedTag)
         {
             Destroy(gameObject);
+            Playerinteraction.RemoveInteract();
         }
 
     }
