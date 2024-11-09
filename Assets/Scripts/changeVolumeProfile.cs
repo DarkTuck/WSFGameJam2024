@@ -10,13 +10,16 @@ public class changeVolumeProfile : MonoBehaviour
     public void SetHorror()
     {
         volume.profile = horror;
+        RenderSettings.fog = true;
     }
     public void SetSweet()
     {
         volume.profile = sweet;
+        RenderSettings.fog = false;
     }
     private void Start()
     {
         SetSweet();
+        RenderSettings.fog = false;
     }
 }

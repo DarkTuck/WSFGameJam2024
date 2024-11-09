@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class AlignRotationWithCamera : MonoBehaviour
@@ -11,6 +12,6 @@ public class AlignRotationWithCamera : MonoBehaviour
     }
     void Update()
     {
-        transform.rotation = cam.rotation;
+        transform.rotation = new Quaternion(0,cam.rotation.y,cam.rotation.z,cam.rotation.w);
     }
 }
