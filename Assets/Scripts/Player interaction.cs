@@ -3,7 +3,7 @@ using UnityEngine.InputSystem;
 
 public class Playerinteraction : MonoBehaviour
 {
-    [SerializeField]Transform itemSlot;
+    [SerializeField]Transform itemSlot,dropSlot;
     bool slotOcupied = false;
     Actions action;
     public static Playerinteraction instance=>_instance;
@@ -79,7 +79,7 @@ public class Playerinteraction : MonoBehaviour
         }
         if (slotOcupied)
         {
-            holdObject.transform.position = transform.position;
+            holdObject.transform.position = dropSlot.position;
             holdObject.transform.rotation = objectOriginalRotation;
             slotOcupied = false;
             holdObject.GetComponent <Collider>().enabled=true;
