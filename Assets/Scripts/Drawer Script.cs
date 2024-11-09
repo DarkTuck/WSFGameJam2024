@@ -9,11 +9,11 @@ public class DrawerScript : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void OnCollisionEnter(Collision collision)
     {
-        Playerinteraction.AddInteract(gameObject);
+        Playerinteraction.AddInteract(gameObject,true);
     }
     private void OnCollisionExit(Collision collision)
     {
-        Playerinteraction.RemoveInteract();
+        Playerinteraction.RemoveInteract(true);
     }
     private void Start()
     {

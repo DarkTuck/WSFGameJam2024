@@ -9,12 +9,12 @@ public class itemScript : MonoBehaviour
         orginalRotation = transform.rotation;
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
         Playerinteraction.AddObject(gameObject,orginalRotation);
         Debug.Log(gameObject + " enter");
     }
-    private void OnCollisionExit(Collision collision)
+    private void OnTriggerExit(Collider other)
     {
         Playerinteraction.RemoveObject();
         Debug.Log(gameObject + " exit");

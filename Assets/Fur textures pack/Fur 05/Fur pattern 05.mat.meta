@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 95c3038f227daf542b4077b9447429b0
+labels:
+- Fur
+- Hair
+- Nature
+- Organic
+- Pattern
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 12961
+  packageName: Fur Textures Pack
+  packageVersion: 1.00
+  assetPath: Assets/Fur textures pack/Fur 05/Fur pattern 05.mat
+  uploadId: 29419

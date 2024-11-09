@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 public class Playerinteraction : MonoBehaviour
 {
     [SerializeField]Transform itemSlot,dropSlot;
-    bool slotOcupied = false;
+    bool slotOcupied = false, isDrawer = false;
     Actions action;
     public static Playerinteraction instance=>_instance;
     private static Playerinteraction _instance;
@@ -20,18 +20,23 @@ public class Playerinteraction : MonoBehaviour
             instance.objectOriginalRotation = quaternion;
         }
     }
-    public static void AddInteract(GameObject obj)
+    public static void AddInteract(GameObject obj, bool isDrawer=false)
     {
         Debug.Log("AddInteract");
         if (!instance.canInteract)
         {
+            if (isDrawer)
+            {
+                instance.isDrawer = true;
+            }
             instance.canInteract = true;
             instance.interactObject=obj;
         }
     }
-    public static void RemoveInteract()
+    public static void RemoveInteract(bool isDrawer=false)
     {
         Debug.Log("RemoveInteract");
+        if (isDrawer) { instance.isDrawer = false; }
         instance.canInteract = false;
         instance.interactObject=null;
     }
@@ -91,15 +96,18 @@ public class Playerinteraction : MonoBehaviour
     void Use(InputAction.CallbackContext context)
     {
         Debug.Log("use");
-        if (canInteract&&holdObject!=null)
+        if (canInteract&&holdObject!=null&&!isDrawer)
         {
             Debug.Log(holdObject.tag);
             interactObject.GetComponent<interactScript>().Use(holdObject.tag);
+            return;
         }
-        if (canInteract&&interactObject!=null)
+        if (canInteract&&isDrawer)
         {
             interactObject.GetComponent<DrawerScript>().Use();
+            return;
         }
+        return;
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
