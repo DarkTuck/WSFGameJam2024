@@ -1,10 +1,16 @@
+using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class Playerinteraction : MonoBehaviour
 {
     [SerializeField]Transform itemSlot,dropSlot;
-    bool slotOcupied = false, isDrawer = false;
+    [SerializeField] TMP_Text text;
+    [SerializeField] GameObject ui;
+    [SerializeField] int timeTillText=5;
+    [SerializeField] string textAtStart = "I need to get out now";
+    bool slotOcupied = false, isDrawer = false, firstAxepickup=true;
     Actions action;
     public static Playerinteraction instance=>_instance;
     private static Playerinteraction _instance;
@@ -72,6 +78,11 @@ public class Playerinteraction : MonoBehaviour
         action.Player.Interact.started -= Interact;
         action.Player.Use.started -= Use;
     }
+    IEnumerator StartingText()
+    {
+        yield return new WaitForSeconds(timeTillText);
+        TaskScript.Write(textAtStart);
+    }
     void Interact(InputAction.CallbackContext context)
     {
         if (!slotOcupied && holdObject!=null)
@@ -79,6 +90,16 @@ public class Playerinteraction : MonoBehaviour
             holdObject.transform.position=itemSlot.position;
             holdObject.transform.rotation=itemSlot.rotation;
             slotOcupied=true;
+            if (holdObject.tag == "axe")
+            {
+                if (firstAxepickup)
+                {
+                    firstAxepickup = false;
+                    ui.SetActive(true);
+                    StartCoroutine("RemoveUI");
+                    text.text = "What the hell is wrong with you !?";
+                }
+            }
             holdObject.GetComponent<Collider>().enabled=false;
             return;
         }
@@ -93,6 +114,11 @@ public class Playerinteraction : MonoBehaviour
 
 
     }
+    IEnumerator RemoveUI()
+    {
+        yield return new WaitForSeconds(3);
+        ui.SetActive(false);
+    }
     void Use(InputAction.CallbackContext context)
     {
         Debug.Log("use");
@@ -101,6 +127,10 @@ public class Playerinteraction : MonoBehaviour
             Debug.Log(holdObject.tag);
             interactObject.GetComponent<interactScript>().Use(holdObject.tag);
             return;
+        }
+        if (canInteract && holdObject == null && !isDrawer)
+        {
+            interactObject.GetComponent<interactScript>().Use("Null");
         }
         if (canInteract&&isDrawer)
         {

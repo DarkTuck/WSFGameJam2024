@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 3
   tags:
   - key
+  - Heart
+  - axe
   layers:
   - Default
   - TransparentFX
@@ -41,6 +43,9 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: ui
+    uniqueID: 4051363107
     locked: 0
   m_RenderingLayers:
   - Default

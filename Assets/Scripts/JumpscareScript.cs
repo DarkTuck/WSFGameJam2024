@@ -28,14 +28,22 @@ public class JumpscareScript : MonoBehaviour
     {
         yield return new WaitForSeconds(timer);
 
+        JumpScare();
+        StartCoroutine("ReturnToNormal");
+    }
+    public void JumpScare()
+    {
         player.GetComponent<PlayerMovement>().enabled = false;
         changeVolumeScript.SetHorror();
         player.transform.position = playerSpawn.position;
-        StartCoroutine("ReturnToNormal");
     }
     IEnumerator ReturnToNormal()
     {
         yield return new WaitForSeconds(movementBlockTimer);
+        BackToNormal();
+    }
+    public void BackToNormal()
+    {
         player.GetComponent<PlayerMovement>().enabled = true;
         changeVolumeScript.SetSweet();
     }

@@ -5,17 +5,35 @@ using TMPro;
 using UnityEngine.UIElements;
 public class TaskScript : MonoBehaviour
 {
+    private static TaskScript _instance;
+    public static TaskScript instance => _instance;
     [SerializeField] TMP_Text _tmpProText;
     public string writer;
-    [SerializeField]string text1, text2;
     public bool write;
     [SerializeField] float delayBeforeStart = 0f, delayBeforeEnd = 0f;
     [SerializeField] float timeBtwChars = 0.1f;
     [SerializeField] string leadingChar = "";
     [SerializeField] bool leadingCharBeforeDelay = false;
+    [SerializeField] GameObject text, border;
     Coroutine typing;
+    private void Awake()
+    {
+        if (_instance != null)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            _instance = this;
+        }
+    }
     IEnumerator TypeWriterTMP()
     {
+        if (border != null && text != null)
+        { 
+            border.SetActive(true);
+            text.SetActive(true);
+        }
         bool specialChar = false; //for example if we did not use it if we have "example\t shit" then the output will be: "example    t shit" 
         _tmpProText.text = leadingCharBeforeDelay ? leadingChar : "";
         char[] write = writer.ToCharArray();
@@ -58,25 +76,22 @@ public class TaskScript : MonoBehaviour
             _tmpProText.text += leadingChar;
             yield return new WaitForSeconds(timeBtwChars);
         }
+
         yield return new WaitForSeconds(delayBeforeEnd);
+        if (border != null && text != null)
+        {
+        border.SetActive(false);
+        text.SetActive(false);
+        }
 
         if (leadingChar != "")
         {
             _tmpProText.text = _tmpProText.text.Substring(0, _tmpProText.text.Length - leadingChar.Length);
         }
     }
-    private void Start()
+    public static void Write(string text)
     {
-        StartCoroutine("Type");
-    }
-    IEnumerator Type()
-    {
-        while (write)
-        {
-            writer = text1;
-            yield return StartCoroutine("TypeWriterTMP");
-            writer = text2;
-            yield return StartCoroutine("TypeWriterTMP");
-        }
+        instance.writer=text;
+        instance.StartCoroutine("TypeWriterTMP");
     }
 }
