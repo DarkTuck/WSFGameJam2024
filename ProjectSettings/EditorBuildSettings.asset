@@ -6,11 +6,17 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/CodePolygon.unity
-    guid: 99c9720ab356a0642a771bea13969a05
+    path: Assets/Scenes/menu.unity
+    guid: 0568866ff778abf4c9842354a74e39cf
+  - enabled: 1
+    path: Assets/Scenes/Story.unity
+    guid: f618b42889f9f8e42818b209f56fc801
   - enabled: 1
     path: Assets/Scenes/GameScene.unity
     guid: e0b76db20abd2834491d30a606183268
+  - enabled: 1
+    path: Assets/Scenes/End.unity
+    guid: 7e04cb9a4503af741912180c765cbf55
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0

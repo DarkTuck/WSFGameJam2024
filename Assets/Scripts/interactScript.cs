@@ -7,6 +7,9 @@ public class interactScript : MonoBehaviour
     [SerializeField] string exeptedTag;
     [SerializeField] JumpscareScript jScript;
     [SerializeField] int timeTillJumpscare=2;
+    [SerializeField] GameObject kurwa,blackScreen,heartKey;
+    [SerializeField] SpriteRenderer spriteRenderer;
+    [SerializeField] Sprite sprite;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void OnTriggerEnter(Collider other)
     {
@@ -19,6 +22,19 @@ public class interactScript : MonoBehaviour
     void JumpScare()
     {
         jScript.JumpScare();
+        spriteRenderer.sprite = sprite;
+        StartCoroutine("lastJump");
+    }
+    IEnumerator lastJump()
+    {
+        yield return new WaitForSeconds(timeTillJumpscare);
+        blackScreen.SetActive(true);
+        heartKey.SetActive(true);
+        yield return new WaitForSeconds (timeTillJumpscare);
+        kurwa.SetActive(false);
+        blackScreen.SetActive(false);
+        jScript.BackToNormal();
+
     }
     IEnumerator JumpScareTimer()
     {
@@ -30,7 +46,8 @@ public class interactScript : MonoBehaviour
         if (tag == exeptedTag)
         {
             SceneManager.LoadScene("End");
-            Playerinteraction.RemoveInteract();
+            Debug.Log("LoadScene");
+            //Playerinteraction.RemoveInteract();
             return;
         }
         if (tag == "Null")
@@ -41,6 +58,7 @@ public class interactScript : MonoBehaviour
         if (tag == "axe")
         {
             TaskScript.Write("This won't work");
+            StartCoroutine("JumpScareTimer");
             return;
         }
         TaskScript.Write("It's not this key");
