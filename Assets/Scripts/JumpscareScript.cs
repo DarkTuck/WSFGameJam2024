@@ -36,6 +36,7 @@ public class JumpscareScript : MonoBehaviour
         player.GetComponent<PlayerMovement>().enabled = false;
         changeVolumeScript.SetHorror();
         player.transform.position = playerSpawn.position;
+        AudioManager.instance.PlayOneShot(AudioManager.instance.Horror, this.transform.position);
     }
     IEnumerator ReturnToNormal()
     {

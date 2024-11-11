@@ -7,9 +7,10 @@ public class interactScript : MonoBehaviour
     [SerializeField] string exeptedTag;
     [SerializeField] JumpscareScript jScript;
     [SerializeField] int timeTillJumpscare=2;
-    [SerializeField] GameObject kurwa,blackScreen,heartKey;
+    [SerializeField] GameObject kurwa,blackScreen,heartKey,soundTrack;
     [SerializeField] SpriteRenderer spriteRenderer;
     [SerializeField] Sprite sprite;
+    [SerializeField] Transform playerSpawn;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void OnTriggerEnter(Collider other)
     {
@@ -28,7 +29,11 @@ public class interactScript : MonoBehaviour
     IEnumerator lastJump()
     {
         yield return new WaitForSeconds(timeTillJumpscare);
+        soundTrack.SetActive(false);
+        AudioManager.instance.PlayOneShot(AudioManager.instance.Jumpscare, playerSpawn.position);
+        yield return new WaitForSeconds(timeTillJumpscare);
         blackScreen.SetActive(true);
+        AudioManager.instance.PlayOneShot(AudioManager.instance.Slash,playerSpawn.position);
         heartKey.SetActive(true);
         yield return new WaitForSeconds (timeTillJumpscare);
         kurwa.SetActive(false);

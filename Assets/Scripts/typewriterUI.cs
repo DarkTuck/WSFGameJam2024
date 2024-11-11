@@ -22,7 +22,8 @@ public class typewriterUI : MonoBehaviour
     }
     IEnumerator Text()
     {
-        string[] lines = File.ReadAllLines(@"Assets/texts.txt");
+        string path = Application.streamingAssetsPath + "/" + "texts" + ".txt";
+        string[] lines = File.ReadAllLines(path);
 
         foreach (string line in lines)
         {

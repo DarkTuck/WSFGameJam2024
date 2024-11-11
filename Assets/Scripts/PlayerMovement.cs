@@ -55,6 +55,7 @@ public class PlayerMovement : MonoBehaviour
     {
         Vector3 moveDirection=new Vector3(move.ReadValue<Vector2>().x,0,move.ReadValue<Vector2>().y);
         transform.Translate(moveDirection*speed, Space.Self);
+        //if (moveDirection != Vector3.zero) { AudioManager.instance.PlayOneShot(AudioManager.instance.Footstep, this.transform.position); }
     }
     //SEX NIE ISTNIEJE
 }
